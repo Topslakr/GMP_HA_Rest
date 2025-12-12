@@ -1,0 +1,26 @@
+services:
+  fetcher:
+    build:
+      context: ./fetcher
+      dockerfile: Dockerfile
+    volumes:
+      - gmpdata:/data
+    environment:
+      GMP_ACCOUNT_NUMBER: "${GMP_ACCOUNT_NUMBER}"
+      GMP_USERNAME: "${GMP_USERNAME}"
+      GMP_PASSWORD: "${GMP_PASSWORD}"
+      OUTPUT_DIR: "/data"
+    restart: unless-stopped
+
+  fileserver:
+    build:
+      context: ./fileserver
+      dockerfile: Dockerfile
+    volumes:
+      - gmpdata:/data
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+volumes:
+  gmpdata:
