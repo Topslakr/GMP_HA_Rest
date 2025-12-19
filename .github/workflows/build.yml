@@ -21,18 +21,18 @@ jobs:
         with:
           driver: cloud
           endpoint: "dockslakr/gmp-ha-rest"
-      - name: Build and push API
+      - name: Build and push Fetcher
         uses: docker/build-push-action@v6
         with:
-          context: ./api
-          file: ./api/Dockerfile
+          context: ./fetcher
+          file: ./fetcher/Dockerfile
           push: true
-          tags: ${{ vars.DOCKER_USER }}/gmp-ha-rest-api:latest
+          tags: ${{ vars.DOCKER_USER }}/gmp-ha-rest-fetcher:latest
 
       - name: Build and push Worker
         uses: docker/build-push-action@v6
         with:
-          context: ./worker
-          file: ./worker/Dockerfile
+          context: ./fileserver
+          file: ./fileserver/Dockerfile
           push: true
-          tags: ${{ vars.DOCKER_USER }}/gmp-ha-rest-worker:latest
+          tags: ${{ vars.DOCKER_USER }}/gmp-ha-rest-fileserver:latest
