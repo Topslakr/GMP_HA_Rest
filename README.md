@@ -27,10 +27,7 @@ For this to talk to Home Assistant Properly, some yaml is needed.
               ts: '{{ repeat.item.timestamp }}'
               kwh: '{{ repeat.item.usage_kwh }}'
           - condition: template
-            value_template: '{{ as_timestamp(ts) | int(0) > as_timestamp(last) | int(0)
-              }}
-
-              '
+            value_template: '{{ as_timestamp(ts) | int(0) > as_timestamp(last) | int(0)}}'
           - service: input_number.set_value
             data:
               entity_id: input_number.gmp_lifetime_energy
