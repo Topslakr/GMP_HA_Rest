@@ -14,8 +14,7 @@ For this to talk to Home Assistant Properly, some yaml is needed.
     minutes: /5
   action:
   - variables:
-      intervals: '{{ state_attr(''sensor.gmp_raw_usage'', ''intervals'') | default([])
-        }}'
+      intervals: '{{ state_attr(''sensor.gmp_raw_usage'', ''intervals'') | default([])}}'
       last: '{{ states(''input_datetime.gmp_last_processed'') }}'
   - choose:
     - conditions: '{{ intervals | length > 0 }}'
@@ -31,8 +30,7 @@ For this to talk to Home Assistant Properly, some yaml is needed.
           - service: input_number.set_value
             data:
               entity_id: input_number.gmp_lifetime_energy
-              value: "{{\n  (states('input_number.gmp_lifetime_energy') | float(0))\n
-                \ + (kwh | float(0))\n}}\n"
+              value: "{{\n  (states('input_number.gmp_lifetime_energy') | float(0)) + (kwh | float(0))\n}}\n"
           - service: input_datetime.set_datetime
             data:
               entity_id: input_datetime.gmp_last_processed
